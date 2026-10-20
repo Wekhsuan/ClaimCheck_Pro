@@ -1,0 +1,23 @@
+# ClaimCheck Pro 生产与公网部署最小依赖清单
+# 适配 Streamlit Community Cloud (Linux) 与本地多平台环境
+
+# 核心 Web 框架
+streamlit>=1.32.0
+
+# 数据校验与结构化 Schema
+pydantic>=2.6.0
+
+# 图像处理与矩阵转换 (本地校验与裁剪)
+pillow>=10.2.0
+numpy>=1.24.0
+
+# 网络请求与 HTML 内容抽取
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+python-dotenv>=1.0.0
+
+# 轻量离线 OCR 纯 CPU 推理 (按需延迟加载)
+rapidocr-onnxruntime>=1.2.0
+
+# 自动化测试套件
+pytest>=8.0.0

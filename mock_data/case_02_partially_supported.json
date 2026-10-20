@@ -1,0 +1,109 @@
+{
+  "case_id": "case_02_partially_supported",
+  "case_name": "案例二：极能闪充 20000mAh 移动电源 (部分支持 - 省略限定条件)",
+  "input_type": "text",
+  "input_sample": "极能闪充 20000mAh 移动电源 65W大功率双向快充 30分钟充满手机 笔记本通用充电宝 双Type-C+USB-A三口输出",
+  "product": {
+    "brand": "极能 (PowerMax)",
+    "model": "PB-20065",
+    "version": "65W 商务灰",
+    "specs": "20000mAh / 65W Max / 2C1A接口",
+    "sales_region": "中国大陆",
+    "confidence": 0.95
+  },
+  "claims": [
+    {
+      "claim_id": 1,
+      "original_text": "支持65W大功率极速闪充，笔记本、手机全速回血",
+      "atomic_statement": "支持最大65W功率输出",
+      "category": "规格参数",
+      "verification_target": "单口最大输出功率"
+    },
+    {
+      "claim_id": 2,
+      "original_text": "30分钟充满旗舰手机，告别续航焦虑",
+      "atomic_statement": "30分钟可充满一部旗舰智能手机",
+      "category": "实测性能",
+      "verification_target": "手机满电时间指标"
+    },
+    {
+      "claim_id": 3,
+      "original_text": "双Type-C+USB-A三口同时快充，多设备同时满速",
+      "atomic_statement": "三口同时输出时各接口均维持快充功率",
+      "category": "功能特性",
+      "verification_target": "多口并发功率分配逻辑"
+    }
+  ],
+  "verification_results": [
+    {
+      "claim_id": 1,
+      "conclusion": "有证据支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A10",
+          "source_title": "极能官网 PB-20065 技术参数表",
+          "source_url": "https://www.powermax.com/pb20065",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "Type-C1单口输出：5V/3A, 9V/3A, 12V/3A, 15V/3A, 20V/3.25A (最大65W)。",
+          "published_date": "2024-03-15"
+        }
+      ],
+      "analysis_reason": "官方说明书明确标注 Type-C1 接口在单独工作时支持 20V/3.25A 最高 65W 输出。",
+      "confidence": 0.97,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：单口65W参数真实存在。"
+    },
+    {
+      "claim_id": 2,
+      "conclusion": "部分支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-B10",
+          "source_title": "充电头网 PB-20065 深度充放电评测",
+          "source_url": "https://www.chongdiantou.com/article/pb20065-review",
+          "source_level": "B级 (权威实验室/科技媒体评测)",
+          "model_matched": true,
+          "snippet": "实测充入主流旗舰机（如iPhone 15 Pro、华为Mate 60），30分钟充入电量约55%~68%；即使在支持特定协议的机型上30分钟充入约85%，并未在30分钟内完全充满100%。",
+          "published_date": "2024-04-20"
+        },
+        {
+          "evidence_id": "EVID-A11",
+          "source_title": "PB-20065 底部微印免责条款",
+          "source_url": "https://www.powermax.com/terms",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "注：30分钟充入至多80%（在极能特定测试工程机灭屏息屏状态下测得），非完全充满100%。",
+          "published_date": "2024-03-15"
+        }
+      ],
+      "analysis_reason": "宣传声称“30分钟充满”，但官方微印注释及权威实验室评测均表明其实际含义为“30分钟快速充入部分电量”，属于宣传夸大或省略关键限定条件，判定为【部分支持】。",
+      "confidence": 0.92,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：未过度断言虚假，准确归类为省略限定条件的部分支持。"
+    },
+    {
+      "claim_id": 3,
+      "conclusion": "部分支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A12",
+          "source_title": "极能产品包装盒背面功率分配规格表",
+          "source_url": "https://www.powermax.com/manuals/pb20065",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "多口输出模式：C1+C2输出为45W+18W；C1+C2+A三口同时输出时，C1保持45W，C2与A口共享5V/3A (15W)。",
+          "published_date": "2024-03-15"
+        }
+      ],
+      "analysis_reason": "宣传语称“多设备同时满速”，但官方分配表显示三口同时插入时仅C1口维持快充，C2与A口降速至普通5V/3A共享，核心多口能力成立但部分接口存在功率折损，判定为【部分支持】。",
+      "confidence": 0.93,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：依据官方功率分配表做出客观修正。"
+    }
+  ],
+  "human_verification_notes": [
+    "宣传语中“30分钟充满手机”存在模糊词义，实际为“30分钟充入大部分”，消费者选购时需注意。",
+    "多设备同时充电时存在功率动态降级策略。"
+  ]
+}

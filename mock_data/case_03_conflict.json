@@ -1,0 +1,82 @@
+{
+  "case_id": "case_03_conflict",
+  "case_name": "案例三：幻影轻薄本 Pro 14 (存在冲突 - 接口协议矛盾)",
+  "input_type": "url",
+  "input_sample": "https://mall.example.com/item/laptop-pro14-thunderbolt.html",
+  "product": {
+    "brand": "幻影 (Phantom)",
+    "model": "Pro 14 (2024款)",
+    "version": "锐龙R7-8845H / 16G / 1TB",
+    "specs": "14英寸2.8K 120Hz / 8845H / 标称雷电4接口",
+    "sales_region": "中国大陆",
+    "confidence": 0.96
+  },
+  "claims": [
+    {
+      "claim_id": 1,
+      "original_text": "搭载满血雷电4(Thunderbolt 4)旗舰接口，支持40Gbps超高速率与外接独立显卡拓展坞",
+      "atomic_statement": "接口支持雷电4协议及外接eGPU显卡扩展",
+      "category": "规格参数",
+      "verification_target": "Type-C接口硬件协议与eGPU兼容性"
+    },
+    {
+      "claim_id": 2,
+      "original_text": "配备2.8K 120Hz超视网膜OLED护眼高刷屏，100% DCI-P3专业广色域",
+      "atomic_statement": "屏幕为2.8K 120Hz OLED材质并具备100% DCI-P3色域",
+      "category": "硬件规格",
+      "verification_target": "屏幕分辨率、刷新率与色域覆盖"
+    }
+  ],
+  "verification_results": [
+    {
+      "claim_id": 1,
+      "conclusion": "存在冲突",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A20",
+          "source_title": "幻影电脑官方技术支持页面 Pro 14 完整I/O端口规格定义",
+          "source_url": "https://www.phantom-tech.com/support/specs/pro14-2024",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "左侧接口：全功能USB 3.2 Gen2 Type-C (10Gbps，支持DP 1.4视频输出与PD 100W充电)，不支持Thunderbolt或USB4，不支持PCIe通道外接显卡拓展。",
+          "published_date": "2024-02-10"
+        },
+        {
+          "evidence_id": "EVID-B20",
+          "source_title": "笔吧评测室 幻影Pro 14 拆解与接口深度测试",
+          "source_url": "https://www.bibareview.com/article/phantom-pro14",
+          "source_level": "B级 (权威实验室/科技媒体评测)",
+          "model_matched": true,
+          "snippet": "通过HWiNFO及实测雷电4外置硬盘，协商速度仅为10Gbps USB协议，无法识别Thunderbolt控制器，插入雷电拓展坞无法建立PCIe握手连接。",
+          "published_date": "2024-03-01"
+        }
+      ],
+      "analysis_reason": "宣传声称搭载“满血雷电4(Thunderbolt 4)”，但同型号A级官方规格书与B级权威拆解测试均明确证实该接口为普通全功能 USB 3.2 Gen2 (10Gbps)，缺乏雷电协议支持，高可信官方资料与宣传文案发生直接矛盾，判定为【存在冲突】。",
+      "confidence": 0.99,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：官方硬件定义与宣传描述直接背离，冲突事实确凿。"
+    },
+    {
+      "claim_id": 2,
+      "conclusion": "有证据支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A21",
+          "source_title": "中国计量科学研究院屏幕校准与检测凭单",
+          "source_url": "https://www.nim.ac.cn/cert/phantom-pro14-screen",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "测试结果：面板分辨率2880x1800，刷新率120.0Hz，DCI-P3色域覆盖率100.2% (容积比106.5%)。",
+          "published_date": "2024-02-05"
+        }
+      ],
+      "analysis_reason": "屏幕硬件参数与官方检测机构报告数据一致，支持该项宣传。",
+      "confidence": 0.97,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：屏幕指标与检测一致。"
+    }
+  ],
+  "human_verification_notes": [
+    "接口宣传存在严重误导可能，消费者若有外接显卡坞或40Gbps高速设备需求请务必与品牌客服核实。"
+  ]
+}

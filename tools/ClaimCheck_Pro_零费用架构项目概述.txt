@@ -1,0 +1,183 @@
+============================================================
+DOCUMENT: ClaimCheck_Pro_零费用架构项目概述.docx
+============================================================
+
+[P style='Normal'] ClaimCheck Pro
+[P style='Normal'] 跨平台商品真实性与一致性核验智能体
+[P style='Normal'] 项目概述
+[EMPTY_P]
+
+--- [TABLE #1: 1 rows x 1 cols] ---
+  Row 0: Col0: 产品采用本地优先和BYOK（用户自带API）架构，不向用户提供由开发者付费的模型、搜索、OCR或云服务额度。
+--- [END TABLE #1] ---
+
+[EMPTY_P]
+[P style='Normal'] 本地优先 · 用户自带API · 开发者不承担调用费用
+[EMPTY_P]
+[P style='Heading 1'] 一、项目定位
+
+--- [TABLE #2: 9 rows x 2 cols] ---
+  Row 0: Col0: 项目项 | Col1: 内容
+  Row 1: Col0: 项目名称 | Col1: ClaimCheck Pro：跨平台商品真实性与一致性核验智能体
+  Row 2: Col0: 核心任务 | Col1: 根据公开证据核验商品宣传声明
+  Row 3: Col0: 三种输入 | Col1: 商品链接、商品详情文本、商品截图
+  Row 4: Col0: 运行方式 | Col1: 用户本机后端 + 手机APP/电脑网页
+  Row 5: Col0: AI服务 | Col1: Mock演示、用户自带API、本地模型
+  Row 6: Col0: 费用原则 | Col1: 第三方API费用由用户自行承担，开发者不代付
+  Row 7: Col0: 增强机制 | Col1: 商品身份确认 + 多源证据交叉验证
+  Row 8: Col0: 后续规划 | Col1: 具备资质后接入平台官方OAuth，不收集平台密码
+--- [END TABLE #2] ---
+
+[EMPTY_P]
+[P style='Heading 2'] 1.1 项目简介
+[P style='Normal'] ClaimCheck Pro 面向消费者和电商运营人员。用户可以提交公开商品链接、粘贴商品详情文本或上传商品截图。系统识别品牌、型号和版本，拆解最多5条宣传声明，再使用用户自行配置的模型和搜索服务，或连接用户本地模型，检索并归纳官方资料、专业评测和用户体验线索，最终生成可追溯的核验报告。
+[P style='Heading 2'] 1.2 核心费用原则
+
+--- [TABLE #3: 1 rows x 1 cols] ---
+  Row 0: Col0: ClaimCheck Pro 不提供开发者付费的默认云模型额度。实时AI、网络搜索、云OCR和存储费用均由用户选择的第三方服务商向用户收取；开发者不代充、不代付、不承担超额调用。
+--- [END TABLE #3] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 二、三种服务模式
+
+--- [TABLE #4: 4 rows x 4 cols] ---
+  Row 0: Col0: 模式 | Col1: 是否实时 | Col2: 费用承担 | Col3: 适用场景
+  Row 1: Col0: Mock演示模式 | Col1: 否 | Col2: 无第三方调用费用 | Col3: 课程答辩、离线演示、功能预览
+  Row 2: Col0: 用户自带API | Col1: 是 | Col2: 用户自己的API账户 | Col3: 实时模型分析、视觉理解和网络搜索
+  Row 3: Col0: 本地模型模式 | Col1: 是 | Col2: 用户自有硬件资源 | Col3: 注重隐私或不使用云端模型
+--- [END TABLE #4] ---
+
+[EMPTY_P]
+[P style='Heading 2'] 2.1 Mock演示模式
+[P style='List Bullet'] 预置蓝牙耳机、充电宝、截图候选和证据不足等案例。
+[P style='List Bullet'] 不调用真实模型或搜索服务。
+[P style='List Bullet'] 页面必须标注“演示数据”，不得伪装成实时联网结果。
+[P style='List Bullet'] 用于保证没有网络和密钥时仍能稳定答辩。
+[P style='Heading 2'] 2.2 用户自带API模式
+[P style='List Bullet'] 用户填写OpenAI兼容Base URL、API Key和模型名称。
+[P style='List Bullet'] 文本模型、视觉模型和搜索服务可分别配置。
+[P style='List Bullet'] 默认仅在当前会话使用；长期保存时必须在用户本机加密。
+[P style='List Bullet'] 每次任务开始前显示预计调用次数和费用承担方。
+[P style='Heading 2'] 2.3 本地模型模式
+[P style='List Bullet'] 电脑运行本地模型兼容接口和本地OCR。
+[P style='List Bullet'] 电脑网页通过localhost访问。
+[P style='List Bullet'] 手机APP通过同一局域网连接用户电脑的FastAPI后端。
+[P style='List Bullet'] 禁止把无认证的本地模型端口直接暴露到公网。
+[P style='Heading 1'] 三、最终产品形态
+[P style='Heading 2'] 3.1 手机端APP
+[P style='List Bullet'] 选择相册截图或调用相机拍摄商品包装。
+[P style='List Bullet'] 从其他APP分享商品链接到ClaimCheck Pro。
+[P style='List Bullet'] 展示候选商品并让用户确认型号。
+[P style='List Bullet'] 查看折叠式核验卡片、历史记录和报告。
+[P style='Heading 2'] 3.2 电脑端网页版
+[P style='List Bullet'] 输入商品链接或大段详情文本。
+[P style='List Bullet'] 上传多张商品截图。
+[P style='List Bullet'] 在大屏中查看完整证据、来源等级和人工确认项。
+[P style='List Bullet'] 导出Markdown、TXT，后续扩展Word与PDF。
+[P style='Heading 2'] 3.3 用户本机后端
+[P style='Normal'] 用户本机FastAPI后端统一负责网页读取、OCR、模型调用、网络检索、证据验证和报告生成。API Key保存在用户电脑，不直接存入手机APP或网页前端。
+[P style='Heading 1'] 四、核心功能
+
+--- [TABLE #5: 9 rows x 2 cols] ---
+  Row 0: Col0: 模块 | Col1: 主要功能
+  Row 1: Col0: 统一输入 | Col1: 商品链接、详情文本、商品截图
+  Row 2: Col0: 商品身份 | Col1: 识别品牌、型号、版本、容量、颜色和销售地区
+  Row 3: Col0: 截图识别 | Col1: OCR提取文字、视觉特征识别、候选商品确认
+  Row 4: Col0: 声明拆解 | Col1: 最多5条参数、功能、性能、兼容性或体验声明
+  Row 5: Col0: 证据检索 | Col1: 官方资料、说明书、专业评测和用户体验线索
+  Row 6: Col0: 交叉验证 | Col1: 按来源等级和型号匹配情况形成结论
+  Row 7: Col0: 结果输出 | Col1: 有证据支持、部分支持、存在冲突、证据不足
+  Row 8: Col0: 报告 | Col1: 来源、理由、置信度、人工确认项与免责声明
+--- [END TABLE #5] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 五、可切换API网关
+[P style='Heading 2'] 5.1 服务配置
+
+--- [TABLE #6: 6 rows x 3 cols] ---
+  Row 0: Col0: 服务类型 | Col1: 用户配置 | Col2: 主要任务
+  Row 1: Col0: 文本模型 | Col1: Base URL、API Key、Model | Col2: 声明拆解、证据归纳、自检和报告
+  Row 2: Col0: 视觉模型 | Col1: Base URL、API Key、Vision Model | Col2: 截图理解和商品特征识别
+  Row 3: Col0: 搜索服务 | Col1: Provider、API Key、结果上限 | Col2: 检索官网、说明书和评测
+  Row 4: Col0: 本地OCR | Col1: 无需云Key | Col2: 截图文字提取
+  Row 5: Col0: 本地模型 | Col1: 局域网或本机兼容地址 | Col2: 离线或隐私优先分析
+--- [END TABLE #6] ---
+
+[EMPTY_P]
+[P style='Heading 2'] 5.2 连接测试与能力检测
+[P style='List Bullet'] 验证Base URL、密钥和模型名称。
+[P style='List Bullet'] 检测文本生成、JSON输出和图片输入能力。
+[P style='List Bullet'] 检测搜索服务是否可用。
+[P style='List Bullet'] 显示平均响应时间和错误原因。
+[P style='List Bullet'] 不支持视觉时自动使用本地OCR并关闭复杂视觉理解。
+[P style='Heading 2'] 5.3 密钥安全
+[P style='List Bullet'] API Key不写入Flutter代码、JavaScript、日志或报告。
+[P style='List Bullet'] 手机端不保存完整密钥，密钥由用户电脑后端管理。
+[P style='List Bullet'] 默认使用临时会话，退出后删除。
+[P style='List Bullet'] 用户勾选记住配置时在本机加密存储并仅显示掩码。
+[P style='Heading 1'] 六、核心业务流程
+[P style='Code Block'] 选择Mock / 用户API / 本地模型
+[P style='Code Block'] → 选择商品链接 / 详情文本 / 商品截图
+[P style='Code Block'] → 确认商品品牌、型号与版本
+[P style='Code Block'] → 拆解最多5条宣传声明
+[P style='Code Block'] → 使用用户服务或本地能力检索证据
+[P style='Code Block'] → 来源分级与型号对齐
+[P style='Code Block'] → 多源证据交叉验证
+[P style='Code Block'] → 二次事实自检
+[P style='Code Block'] → 输出报告并保存在用户本机
+[P style='Heading 1'] 七、四级核验结论
+
+--- [TABLE #7: 5 rows x 2 cols] ---
+  Row 0: Col0: 结论 | Col1: 定义
+  Row 1: Col0: 有证据支持 | Col1: 同型号高可信资料与宣传一致。
+  Row 2: Col0: 部分支持 | Col1: 核心内容有依据，但省略条件、扩大范围或实测存在差异。
+  Row 3: Col0: 存在冲突 | Col1: 同型号高可信资料与宣传直接矛盾。
+  Row 4: Col0: 证据不足 | Col1: 资料、型号或来源不足，不能作出强结论。
+--- [END TABLE #7] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 八、成本控制机制
+[P style='List Bullet'] 单次最多核验5条声明。
+[P style='List Bullet'] 限制每条声明的搜索结果数。
+[P style='List Bullet'] 限制模型调用次数、重试次数、Token和任务时长。
+[P style='List Bullet'] 开始分析前显示预计调用步骤。
+[P style='List Bullet'] 允许用户随时取消任务。
+[P style='List Bullet'] 默认失败即停止，不自动回退到任何开发者付费服务。
+[P style='List Bullet'] 结果页显示本次实际使用的模型和搜索服务。
+[P style='Heading 1'] 九、平台登录的后续边界
+[P style='Normal'] 淘宝、拼多多登录不属于作业必做功能。未来如接入，必须使用平台官方OAuth授权和最小权限原则，账号密码只在平台官方页面输入。ClaimCheck Pro只接收授权结果，不存储用户平台密码。平台接口能否搜索商品取决于应用资质和授权权限。
+[P style='Heading 1'] 十、8个固定测试
+
+--- [TABLE #8: 9 rows x 3 cols] ---
+  Row 0: Col0: 编号 | Col1: 测试场景 | Col2: 预期结果
+  Row 1: Col0: T01 | Col1: Mock离线模式 | Col2: 无Key、无网络仍能完整演示
+  Row 2: Col0: T02 | Col1: 用户API连接测试 | Col2: 识别有效或无效配置并展示原因
+  Row 3: Col0: T03 | Col1: 公开静态商品页 | Col2: 提取商品身份和宣传声明
+  Row 4: Col0: T04 | Col1: 截图存在多个相似型号 | Col2: 展示候选并要求用户确认
+  Row 5: Col0: T05 | Col1: 官方证据支持 | Col2: 输出有证据支持
+  Row 6: Col0: T06 | Col1: 宣传省略条件 | Col2: 输出部分支持
+  Row 7: Col0: T07 | Col1: 官方资料冲突或资料不足 | Col2: 分别输出存在冲突或证据不足
+  Row 8: Col0: T08 | Col1: 登录或验证码页面 | Col2: 不绕过限制，切换文本或截图模式
+--- [END TABLE #8] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 十一、成功标准
+[P style='Normal'] ☐  手机APP和电脑网页可连接同一用户本机后端
+[P style='Normal'] ☐  Mock、用户API和本地模型三种模式可切换
+[P style='Normal'] ☐  开发者没有默认付费API密钥
+[P style='Normal'] ☐  链接、文本和截图三种输入可用
+[P style='Normal'] ☐  用户确认型号后再核验
+[P style='Normal'] ☐  最多5条声明并显示证据来源
+[P style='Normal'] ☐  四级结论和置信度正确展示
+[P style='Normal'] ☐  8个测试有真实记录
+[P style='Normal'] ☐  无密码、Key、Token或Cookie泄露
+[P style='Normal'] ☐  报告能够导出并保存在用户本机
+
+--- [TABLE #9: 1 rows x 1 cols] ---
+  Row 0: Col0: 最终产品定位：本地优先、用户自带AI服务的跨平台商品核验工具。软件提供能力和流程，不提供由开发者买单的模型或检索额度。
+--- [END TABLE #9] ---
+
+[OTHER_ELEMENT: {http://schemas.openxmlformats.org/wordprocessingml/2006/main}sectPr]
+
+Summary for ClaimCheck_Pro_零费用架构项目概述.docx:
+Total elements: 104, Paragraphs: 94, Tables: 9

@@ -1,0 +1,83 @@
+{
+  "case_id": "case_04_insufficient",
+  "case_name": "案例四：御盾能量石防辐射健康手环 (证据不足 - 缺少同型号资料)",
+  "input_type": "text",
+  "input_sample": "御盾 纳米量子高能负离子能量石手环 阻隔99.9%手机电磁辐射 改善睡眠微循环 军工级防辐射材质认证",
+  "product": {
+    "brand": "御盾 (YuShield)",
+    "model": "YD-Q900",
+    "version": "曜石黑 典藏版",
+    "specs": "天然负离子晶石 / 宣称99.9%屏蔽率",
+    "sales_region": "中国大陆",
+    "confidence": 0.85
+  },
+  "claims": [
+    {
+      "claim_id": 1,
+      "original_text": "采用军工级纳米复合阻隔技术，屏蔽高达99.9%的手机与5G射频辐射",
+      "atomic_statement": "对手机及5G射频电磁辐射屏蔽率达99.9%",
+      "category": "核心功能",
+      "verification_target": "电磁屏蔽效能专业检测报告"
+    },
+    {
+      "claim_id": 2,
+      "original_text": "内置高活性量子负离子能量源，佩戴3天显著改善睡眠与血液微循环",
+      "atomic_statement": "产生负离子并具医学改善睡眠功效",
+      "category": "体验功效",
+      "verification_target": "负离子释放量检测及临床医学证据"
+    }
+  ],
+  "verification_results": [
+    {
+      "claim_id": 1,
+      "conclusion": "证据不足",
+      "evidences": [
+        {
+          "evidence_id": "EVID-C30",
+          "source_title": "工业和信息化部无线电发射设备型号核准及认证数据库检索",
+          "source_url": "https://www.miit.gov.cn/datasearch",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": false,
+          "snippet": "检索品牌‘御盾’及型号‘YD-Q900’：未查询到对应的国家级质检报告、3C认证记录或防辐射效能检测登记。",
+          "published_date": "2024-06-01"
+        },
+        {
+          "evidence_id": "EVID-B30",
+          "source_title": "中国消费者协会防辐射商品消费警示专题文献",
+          "source_url": "https://www.cca.org.cn/tips/radiation-warning",
+          "source_level": "B级 (权威实验室/科技媒体评测)",
+          "model_matched": false,
+          "snippet": "市场上多数号称‘纳米量子防辐射’的穿戴饰品缺乏公认行业标准和同型号有效防护实验证明，常规日常佩戴无法阻断空间中开放式射频辐射。",
+          "published_date": "2023-11-15"
+        }
+      ],
+      "analysis_reason": "经检索国家权威质检公示平台，未查询到该品牌‘YD-Q900’型号的任何官方技术备案或具有CMA/CNAS资质认证的防辐射检测报告。行业通识文献提示此类产品概念缺乏普适证据，但鉴于未能获取该商品特定实验室原始送检实测件，依据审慎客观原则，【不得在缺乏同型号证据时直接判定为虚假宣传】，判定为【证据不足】。",
+      "confidence": 0.75,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：严格遵守规则‘不得把没有检索到证据判断为虚假宣传’，保持中立归入证据不足。"
+    },
+    {
+      "claim_id": 2,
+      "conclusion": "证据不足",
+      "evidences": [
+        {
+          "evidence_id": "EVID-D30",
+          "source_title": "医学文献检索库 (生物物理与负离子疗效文献汇总)",
+          "source_url": "https://www.medline.example/search?q=negative+ion+bracelet",
+          "source_level": "B级 (权威实验室/科技媒体评测)",
+          "model_matched": false,
+          "snippet": "目前医学界对于手环类微量天然矿石释放负离子的生理吸收效率与睡眠改善机制尚未形成大样本双盲临床共识证据。",
+          "published_date": "2023-08-20"
+        }
+      ],
+      "analysis_reason": "宣称具有显著医疗保健改善功效，但在药品监督管理及权威医疗文献中无该型号注册信息，缺少充分有效医学验证依据，判定为【证据不足】。",
+      "confidence": 0.70,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：中立判定证据不足，附带人工复核与就医遵医嘱提醒。"
+    }
+  ],
+  "human_verification_notes": [
+    "该产品未检索到国家权威CMA/CNAS认证检测报告，建议消费者向商家索取具有法律效力的原件检测报告。",
+    "防辐射手环不能替代标准电磁屏蔽防护措施，涉及身体健康问题请遵循专业医疗指导。"
+  ]
+}

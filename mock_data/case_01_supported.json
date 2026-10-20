@@ -1,0 +1,109 @@
+{
+  "case_id": "case_01_supported",
+  "case_name": "案例一：声学极客 SoundPro X1 旗舰主动降噪耳机 (有证据支持)",
+  "input_type": "url",
+  "input_sample": "https://item.jd.com/1008695271.html",
+  "product": {
+    "brand": "声学极客 (SoundGeek)",
+    "model": "SoundPro X1",
+    "version": "曜石黑 降噪旗舰版",
+    "specs": "双馈主动降噪 / 蓝牙5.3 / LHDC 5.0 / 40小时续航",
+    "sales_region": "中国大陆",
+    "confidence": 0.98
+  },
+  "claims": [
+    {
+      "claim_id": 1,
+      "original_text": "深度降噪高达48dB，智能自适应消除环境嘈杂人声与低频轰鸣",
+      "atomic_statement": "主动降噪最大深度达到48dB",
+      "category": "核心功能",
+      "verification_target": "降噪深度参数(dB)"
+    },
+    {
+      "claim_id": 2,
+      "original_text": "全链路支持LHDC 5.0超高清音频传输，获得Hi-Res Wireless金标认证",
+      "atomic_statement": "支持LHDC 5.0蓝牙高清解码并具Hi-Res Wireless认证",
+      "category": "规格参数",
+      "verification_target": "蓝牙音频编解码协议及权威金标认证"
+    },
+    {
+      "claim_id": 3,
+      "original_text": "配合充电仓实现最长40小时综合续航，单次连续听歌9小时",
+      "atomic_statement": "整机综合续航可达40小时(关闭降噪状态)",
+      "category": "实测性能",
+      "verification_target": "单次及综合电池续航时间"
+    }
+  ],
+  "verification_results": [
+    {
+      "claim_id": 1,
+      "conclusion": "有证据支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A01",
+          "source_title": "声学极客官方产品规格技术白皮书 (SoundPro X1 Spec v1.2)",
+          "source_url": "https://www.soundgeek.cn/products/soundpro-x1/specs.html",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "第3.1节：在国家无线电及声学产品质量检验检测中心依据GB/T 12060.7测试标准下，SoundPro X1最大降噪深度为48.2dB (测试频段50Hz~3000Hz)。",
+          "published_date": "2024-05-10"
+        },
+        {
+          "evidence_id": "EVID-B01",
+          "source_title": "爱搞机实验室耳机降噪深度横评报告",
+          "source_url": "https://www.igaoji.com/review/soundpro-x1-anc",
+          "source_level": "B级 (权威实验室/科技媒体评测)",
+          "model_matched": true,
+          "snippet": "人工耳仿真测试显示，在深层降噪模式下低频峰值降噪深度达到47.8dB，与官方公布48dB基本一致。",
+          "published_date": "2024-06-02"
+        }
+      ],
+      "analysis_reason": "同型号A级官方质检检测报告明确记载最大降噪深度达到48.2dB，且B级权威实验室实测数据47.8dB相互印证，无高可信冲突证据。",
+      "confidence": 0.96,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：证据链对应SoundPro X1型号，官方质检报告编号可查，结论确凿。"
+    },
+    {
+      "claim_id": 2,
+      "conclusion": "有证据支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A02",
+          "source_title": "日本音响协会 (JAS) Hi-Res Wireless 认证公示名录",
+          "source_url": "https://www.jas-audio.or.jp/hi-res/certified-devices",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "Device: SoundPro X1, Manufacturer: SoundGeek, Codec: LHDC 5.0, Certificate No: HRW-2024-9981.",
+          "published_date": "2024-04-18"
+        }
+      ],
+      "analysis_reason": "JAS官方认证库与品牌芯片规格书均明确列明该型号支持LHDC 5.0协议并持有金标证书。",
+      "confidence": 0.98,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：认证证书与型号匹配一致。"
+    },
+    {
+      "claim_id": 3,
+      "conclusion": "有证据支持",
+      "evidences": [
+        {
+          "evidence_id": "EVID-A03",
+          "source_title": "SoundPro X1 包装盒内快速入门指南与使用说明书",
+          "source_url": "https://www.soundgeek.cn/support/manual/soundpro-x1.pdf",
+          "source_level": "A级 (官方资料/说明书/国标质检)",
+          "model_matched": true,
+          "snippet": "电池规格：耳机单只55mAh，充电仓500mAh。AAC编码/50%音量/关闭ANC实测单次续航9.2小时，配合充电仓综合40.5小时。",
+          "published_date": "2024-05-01"
+        }
+      ],
+      "analysis_reason": "官方说明书详细标注测试条件（AAC编码、50%音量、关降噪），综合续航40小时宣传与官方说明书完全一致。",
+      "confidence": 0.95,
+      "self_check_passed": true,
+      "self_check_notes": "通过自检：说明书测试条件与宣传标称匹配。"
+    }
+  ],
+  "human_verification_notes": [
+    "需注意LHDC 5.0协议需要手机端芯片与系统同步支持，iOS设备默认降级为AAC编码传输。",
+    "降噪深度受耳帽气密性佩戴影响存在个体差异。"
+  ]
+}

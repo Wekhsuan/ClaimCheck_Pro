@@ -1,0 +1,244 @@
+============================================================
+DOCUMENT: ClaimCheck_Pro_零费用架构实施步骤.docx
+============================================================
+
+[P style='Normal'] ClaimCheck Pro
+[P style='Normal'] 跨平台商品真实性与一致性核验智能体
+[P style='Normal'] 实施步骤
+[EMPTY_P]
+
+--- [TABLE #1: 1 rows x 1 cols] ---
+  Row 0: Col0: 先完成零费用课程原型，再拆分FastAPI后端，最后开发Flutter手机APP与电脑网页版。所有实时第三方服务由用户自行配置。
+--- [END TABLE #1] ---
+
+[EMPTY_P]
+[P style='Normal'] 本地优先 · 用户自带API · 开发者不承担调用费用
+[EMPTY_P]
+[P style='Heading 1'] 一、实施范围和版本路线
+
+--- [TABLE #2: 5 rows x 3 cols] ---
+  Row 0: Col0: 版本 | Col1: 内容 | Col2: 费用方式
+  Row 1: Col0: V0.1 课程原型 | Col1: Streamlit、三种输入、Mock与用户API、8个测试 | Col2: 开发者0调用费用
+  Row 2: Col0: V1.0 本机产品 | Col1: FastAPI后端、Flutter Web、Android APP | Col2: 用户API或本地模型
+  Row 3: Col0: V1.5 完整移动端 | Col1: 相机、分享入口、历史记录、报告同步 | Col2: 用户本机资源
+  Row 4: Col0: V2.0 平台扩展 | Col1: 符合资质时接入官方OAuth和批准API | Col2: 用户或平台规则决定
+--- [END TABLE #2] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 二、阶段1：Streamlit零费用课程原型
+[P style='Heading 2'] 2.1 环境与依赖
+[P style='Code Block'] python -m venv .venv
+[P style='Code Block'] .venv\Scripts\Activate.ps1
+[P style='Code Block'] python -m pip install streamlit requests beautifulsoup4 pydantic python-dotenv pillow
+[P style='Heading 2'] 2.2 原型页面
+[P style='List Bullet'] 服务模式：Mock演示、用户自带API、本地模型。
+[P style='List Bullet'] 输入标签页：商品链接、详情文本、商品截图。
+[P style='List Bullet'] 模型设置：Base URL、API Key、模型名称和测试连接。
+[P style='List Bullet'] 结果区域：商品身份、四级统计、声明卡片、来源和报告下载。
+[P style='Heading 2'] 2.3 Mock模式
+[P style='List Number'] 建立4至6个预置案例。
+[P style='List Number'] 案例数据保存在mock_data.py或JSON。
+[P style='List Number'] 页面明确标注演示模式。
+[P style='List Number'] 无密钥、无网络时运行全部页面和报告。
+
+--- [TABLE #3: 1 rows x 1 cols] ---
+  Row 0: Col0: 阶段验收：老师电脑没有任何API Key时，项目仍可完整演示输入、进度、核验结果和报告下载。
+--- [END TABLE #3] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 三、阶段2：BYOK配置与统一AI网关
+[P style='Heading 2'] 3.1 设置字段
+[P style='List Bullet'] 服务模式：用户API或本地模型。
+[P style='List Bullet'] 文本模型Base URL、API Key、Model。
+[P style='List Bullet'] 可选视觉模型和搜索服务配置。
+[P style='List Bullet'] Timeout、Retry、Temperature、Max Tokens。
+[P style='List Bullet'] 默认仅当前会话使用。
+[P style='Heading 2'] 3.2 Provider适配层
+[P style='Code Block'] AIProvider
+[P style='Code Block'] ├── test_connection()
+[P style='Code Block'] ├── generate_text()
+[P style='Code Block'] ├── analyze_image()
+[P style='Code Block'] ├── supports_json_mode()
+[P style='Code Block'] └── supports_vision()
+[EMPTY_P]
+[P style='Code Block'] Providers
+[P style='Code Block'] ├── MockProvider
+[P style='Code Block'] ├── OpenAICompatibleProvider
+[P style='Code Block'] └── LocalModelProvider
+[P style='Heading 2'] 3.3 能力检测
+[P style='List Number'] 发送最小文本请求。
+[P style='List Number'] 验证密钥和模型名称。
+[P style='List Number'] 检测JSON输出。
+[P style='List Number'] 视觉模型执行最小图片测试。
+[P style='List Number'] 记录响应时间和错误原因。
+[P style='List Number'] 不支持的能力在页面禁用。
+[P style='Heading 2'] 3.4 安全限制
+[P style='List Bullet'] 仅允许HTTPS公网地址；本地模式可允许localhost和局域网。
+[P style='List Bullet'] 禁止任意自定义请求模板，第一版只支持OpenAI兼容协议。
+[P style='List Bullet'] 日志中对API Key脱敏。
+[P style='List Bullet'] 报告和异常堆栈不包含密钥。
+[P style='List Bullet'] 失败时不回退到开发者服务。
+[P style='Heading 1'] 四、阶段3：统一输入与商品解析
+[P style='Heading 2'] 4.1 链接输入
+[P style='List Bullet'] 只允许http和https。
+[P style='List Bullet'] 拒绝危险内网访问和异常重定向。
+[P style='List Bullet'] 先用requests和BeautifulSoup读取。
+[P style='List Bullet'] 优先解析JSON-LD Product数据。
+[P style='List Bullet'] 动态页面再调用Playwright。
+[P style='List Bullet'] 登录或验证码页面直接降级。
+[P style='Heading 2'] 4.2 详情文本
+[P style='List Bullet'] 用户粘贴标题、规格和卖点。
+[P style='List Bullet'] 清洗重复、空行和无关文本。
+[P style='List Bullet'] 长度校验和敏感信息提示。
+[P style='Heading 2'] 4.3 商品截图
+[P style='List Bullet'] 本地Pillow完成压缩和质量检查。
+[P style='List Bullet'] 本地OCR优先提取品牌、型号和参数，避免云OCR费用。
+[P style='List Bullet'] 用户配置视觉模型时，才进行复杂视觉理解。
+[P style='List Bullet'] 展示最多3个候选商品，由用户确认。
+[P style='Heading 1'] 五、阶段4：证据检索与用户费用控制
+[P style='Heading 2'] 5.1 搜索方式
+[P style='List Bullet'] 配置搜索API时执行实时检索。
+[P style='List Bullet'] 没有搜索API时允许用户手动添加官方或评测链接。
+[P style='List Bullet'] Mock模式只使用预置证据。
+[P style='List Bullet'] 不得伪造实时搜索结果。
+[P style='Heading 2'] 5.2 调用预算
+
+--- [TABLE #4: 8 rows x 2 cols] ---
+  Row 0: Col0: 限制项 | Col1: 推荐默认值
+  Row 1: Col0: 最大声明数 | Col1: 5
+  Row 2: Col0: 每条声明搜索结果 | Col1: 3至5条
+  Row 3: Col0: 文本模型最大调用 | Col1: 3至5次
+  Row 4: Col0: 视觉模型最大调用 | Col1: 1次
+  Row 5: Col0: 自动重试 | Col1: 最多1至2次
+  Row 6: Col0: 单任务超时 | Col1: 60至120秒
+  Row 7: Col0: 后台自动任务 | Col1: 关闭
+--- [END TABLE #4] ---
+
+[EMPTY_P]
+[P style='Heading 2'] 5.3 分析前提示
+[P style='Code Block'] 本次预计调用：
+[P style='Code Block'] 文本模型：3次
+[P style='Code Block'] 视觉模型：0或1次
+[P style='Code Block'] 搜索服务：最多15条结果
+[P style='Code Block'] 费用承担方：用户所配置的第三方服务账户
+[EMPTY_P]
+[P style='Code Block'] [开始分析] [取消]
+[P style='Heading 1'] 六、阶段5：多源证据交叉验证
+[P style='List Number'] 确认商品品牌、型号、版本和地区。
+[P style='List Number'] 拆解最多5条原子声明。
+[P style='List Number'] 为每条声明收集官方、专业评测和体验线索。
+[P style='List Number'] 对来源进行A/B/C/D分级。
+[P style='List Number'] 检查证据是否对应同一型号。
+[P style='List Number'] 形成四级结论和置信度。
+[P style='List Number'] 执行二次事实自检。
+
+--- [TABLE #5: 5 rows x 2 cols] ---
+  Row 0: Col0: 结论 | Col1: 使用条件
+  Row 1: Col0: 有证据支持 | Col1: 同型号A级证据明确支持，没有高质量冲突证据。
+  Row 2: Col0: 部分支持 | Col1: 核心内容成立，但条件、范围或实测存在差异。
+  Row 3: Col0: 存在冲突 | Col1: 同型号高可信资料与宣传直接矛盾。
+  Row 4: Col0: 证据不足 | Col1: 型号、来源或证据不充分。
+--- [END TABLE #5] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 七、阶段6：报告与本地存储
+[P style='List Bullet'] 报告第一版支持Markdown和TXT。
+[P style='List Bullet'] 保存商品身份、声明、证据、结论、服务模式和分析时间。
+[P style='List Bullet'] 不保存完整API Key。
+[P style='List Bullet'] 历史记录默认保存在用户电脑SQLite。
+[P style='List Bullet'] 用户可以删除单条或全部历史。
+[P style='List Bullet'] 后续增加Word和PDF导出。
+[P style='Heading 1'] 八、阶段7：迁移FastAPI统一后端
+[P style='Heading 2'] 8.1 后端模块
+[P style='Code Block'] backend/
+[P style='Code Block'] ├── app/api/
+[P style='Code Block'] ├── app/providers/
+[P style='Code Block'] ├── app/crawlers/
+[P style='Code Block'] ├── app/ocr/
+[P style='Code Block'] ├── app/search/
+[P style='Code Block'] ├── app/verifier/
+[P style='Code Block'] ├── app/reports/
+[P style='Code Block'] ├── app/storage/
+[P style='Code Block'] └── tests/
+[P style='Heading 2'] 8.2 核心接口
+[P style='Code Block'] POST /api/v1/config/test
+[P style='Code Block'] POST /api/v1/analyze/url
+[P style='Code Block'] POST /api/v1/analyze/text
+[P style='Code Block'] POST /api/v1/analyze/image
+[P style='Code Block'] GET  /api/v1/tasks/{task_id}
+[P style='Code Block'] GET  /api/v1/history
+[P style='Code Block'] GET  /api/v1/reports/{report_id}
+[P style='Heading 2'] 8.3 本地服务启动
+[P style='List Bullet'] 默认监听127.0.0.1。
+[P style='List Bullet'] 手机局域网连接时，由用户主动开启局域网监听。
+[P style='List Bullet'] 首次连接显示配对码或Token。
+[P style='List Bullet'] 不把后端无认证暴露到公网。
+[P style='Heading 1'] 九、阶段8：Flutter电脑网页和手机APP
+[P style='Heading 2'] 9.1 共用前端
+[P style='List Bullet'] 同一Flutter工程输出Web和Android，后续增加iOS。
+[P style='List Bullet'] 电脑端采用多栏证据布局。
+[P style='List Bullet'] 手机端采用卡片和折叠面板。
+[P style='List Bullet'] 手机支持相册、相机和系统分享商品链接。
+[P style='Heading 2'] 9.2 首次连接流程
+[P style='List Number'] 电脑启动ClaimCheck本机后端。
+[P style='List Number'] 手机和电脑连接同一局域网。
+[P style='List Number'] 手机输入局域网地址或扫描配对二维码。
+[P style='List Number'] 输入一次性配对码。
+[P style='List Number'] 手机只调用用户电脑后端，不保存模型密钥。
+[P style='Heading 1'] 十、阶段9：8个固定测试
+
+--- [TABLE #6: 9 rows x 3 cols] ---
+  Row 0: Col0: 编号 | Col1: 测试场景 | Col2: 验收重点
+  Row 1: Col0: T01 | Col1: Mock模式无网络运行 | Col2: 完整演示且标注预置数据
+  Row 2: Col0: T02 | Col1: 用户API有效/无效配置 | Col2: 测试连接与错误说明
+  Row 3: Col0: T03 | Col1: 本地模型连接 | Col2: 局域网或localhost正常调用
+  Row 4: Col0: T04 | Col1: 公开商品链接 | Col2: 读取、识别和声明拆解
+  Row 5: Col0: T05 | Col1: 截图候选确认 | Col2: 先确认型号再核验
+  Row 6: Col0: T06 | Col1: 多源支持或部分支持 | Col2: 结论与证据对应
+  Row 7: Col0: T07 | Col1: 冲突或证据不足 | Col2: 不做过度断言
+  Row 8: Col0: T08 | Col1: 登录/验证码页面 | Col2: 降级文本或截图，不绕过限制
+--- [END TABLE #6] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 十一、阶段10：密钥和隐私验收
+[P style='Normal'] ☐  GitHub中没有.env和真实密钥
+[P style='Normal'] ☐  前端代码没有API Key
+[P style='Normal'] ☐  日志不包含Key、Token或Cookie
+[P style='Normal'] ☐  报告不包含密钥和本地敏感路径
+[P style='Normal'] ☐  手机不保存模型密钥
+[P style='Normal'] ☐  临时会话退出后清理Key
+[P style='Normal'] ☐  长期保存时本机加密并可删除
+[P style='Normal'] ☐  截图上传前有隐私裁剪提示
+[P style='Normal'] ☐  平台账号密码不进入ClaimCheck
+[P style='Heading 1'] 十二、建议时间线
+
+--- [TABLE #7: 6 rows x 3 cols] ---
+  Row 0: Col0: 阶段 | Col1: 时间 | Col2: 交付物
+  Row 1: Col0: 课程原型 | Col1: 7至10天 | Col2: Streamlit、Mock、用户API、8个测试
+  Row 2: Col0: FastAPI拆分 | Col1: 5至7天 | Col2: 统一后端和自动接口文档
+  Row 3: Col0: Flutter Web | Col1: 7至10天 | Col2: 电脑端响应式网页
+  Row 4: Col0: Android APP | Col1: 7至14天 | Col2: 手机端、相册、相机和分享入口
+  Row 5: Col0: 联调和测试 | Col1: 5至7天 | Col2: 本地配对、历史和报告
+--- [END TABLE #7] ---
+
+[EMPTY_P]
+[P style='Heading 1'] 十三、最终交付物
+[P style='Normal'] ☐  Streamlit课程原型
+[P style='Normal'] ☐  FastAPI本机后端
+[P style='Normal'] ☐  Flutter Web电脑端
+[P style='Normal'] ☐  Android安装包
+[P style='Normal'] ☐  Mock演示案例
+[P style='Normal'] ☐  用户API配置说明
+[P style='Normal'] ☐  本地模型连接说明
+[P style='Normal'] ☐  8个测试报告
+[P style='Normal'] ☐  项目概述与实施步骤
+[P style='Normal'] ☐  README与答辩PPT
+
+--- [TABLE #8: 1 rows x 1 cols] ---
+  Row 0: Col0: 最终实施原则：开发者只提供软件，不提供付费调用额度。任何实时模型、搜索、视觉或云服务均由用户自行配置，或者使用用户本地资源。
+--- [END TABLE #8] ---
+
+[OTHER_ELEMENT: {http://schemas.openxmlformats.org/wordprocessingml/2006/main}sectPr]
+
+Summary for ClaimCheck_Pro_零费用架构实施步骤.docx:
+Total elements: 177, Paragraphs: 168, Tables: 8
